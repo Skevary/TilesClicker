@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng s --port=4222 -o=true",
+    "start:!lr": "ng s --port=4222 --liveReload=false -o=true",
+    "start:public": "ng s --host=0.0.0.0 --port=4222 --disableHostCheck=true --liveReload=false -o=true",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -16,9 +18,12 @@
     "@angular/compiler": "~9.0.1",
     "@angular/core": "~9.0.1",
     "@angular/forms": "~9.0.1",
+    "@angular/material": "^9.0.0",
     "@angular/platform-browser": "~9.0.1",
     "@angular/platform-browser-dynamic": "~9.0.1",
     "@angular/router": "~9.0.1",
+    "magic.css": "^1.4.5",
+    "normalize.css": "^8.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

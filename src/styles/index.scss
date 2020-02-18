@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import "~normalize.css";
+@import 'animations';
+@import 'material';
+
+:root {
+  --green: #5daa60;
+  --red: #dd5454;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+}
+
+button {
+  border-style: unset;
+}

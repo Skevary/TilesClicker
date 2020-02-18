@@ -1,0 +1,75 @@
+@import "~magic.css/assets/scss/magic";
+
+@keyframes won {
+  from {
+    top: 100%;
+    transform: rotate(180deg);
+  }
+  to {
+    top: 30%;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes start {
+  from {
+    top: 30%;
+    transform: rotate(0deg);
+  }
+  to {
+    top: 100%;
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes floating {
+  0% {
+    top: 0px;
+    transform: rotate(0deg);
+  }
+  25% {
+    top: 5px;
+    transform: rotate(3deg);
+  }
+  50% {
+    top: -5px;
+    transform: rotate(-3deg);
+  }
+  100% {
+    top: 0px;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes getIn {
+  from {
+    background-size: 0%;
+  }
+  to {
+    background-size: 70%;
+  }
+}
+
+@keyframes getIn1 {
+  from {
+    background-size: 0%;
+  }
+  to {
+    background-size: 70%;
+  }
+}
+
+@keyframes levelUp {
+  0% {
+    opacity: 0;
+    visibility: visible;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
