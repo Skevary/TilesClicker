@@ -1,4 +1,5 @@
-import {AI, Tile, Level, getRand} from '@shared';
+import {AI, Level, Tile} from './models';
+import {getRand} from './utility';
 
 export const aiXsEasy = (scene: Tile[]) => {
   const sc = [...scene];
