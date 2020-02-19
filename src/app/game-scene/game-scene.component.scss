@@ -1,0 +1,62 @@
+:host {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: fit-content;
+  border-radius: 8px;
+  background-color: rgba(51, 51, 51, 0.05);
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+
+  .pre-scene {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+    background-color: rgba(51, 51, 51, 0.5);
+
+    span {
+      font-size: 2.2em;
+      color: gold;
+    }
+  }
+
+  .tile {
+    display: flex;
+    float: left;
+    margin: 1px;
+    padding: 0;
+    text-align: center;
+    border-radius: 8px;
+    border: 3px solid #333;
+    border-top-width: 1px;
+    border-left-width: 1px;
+
+    background-position: center;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
+  .empty {
+    background-color: rgba(218, 221, 226, 0.2);;
+  }
+
+  .player {
+    background-color: rgba(173, 171, 232, 0.5);
+    //background-image: url("https://image.flaticon.com/icons/svg/490/490091.svg");
+    cursor: initial !important;
+  }
+
+  .enemy {
+    background-color: rgba(243, 156, 156, 0.5);
+    //background-image: url("https://image.flaticon.com/icons/svg/2241/2241191.svg");
+  }
+
+
+}
