@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-level-box',
-  templateUrl: './level-box.component.html',
+  template: `
+    <span>Level Box Work!</span>
+  `,
   styleUrls: ['./level-box.component.scss']
 })
 export class LevelBoxComponent implements OnInit {
