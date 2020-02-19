@@ -16,10 +16,28 @@ const loss = {
 
 @Component({
   selector: 'app-messages-box',
-  template: ``,
+  template: `
+    <div class="header">
+        <span>{{data[active].title}}</span>
+    </div>
+
+    <div class="body">
+
+    </div>
+
+    <div class="footer">
+      <button [disabled]="false" (click)="play.emit()">
+        {{'Ok, Play ⇨'}}
+      </button>
+    </div>
+  `,
   styleUrls: ['./messages-box.component.scss']
 })
 export class MessagesBoxComponent implements OnInit {
+  @Input() active: MsgPane;
+  @Output() play = new EventEmitter();
+
+  data = {welcome, win, loss};
 
   constructor() {
   }
