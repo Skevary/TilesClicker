@@ -2,25 +2,22 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {TopPanelComponent} from './top-panel/top-panel.component';
-import {LevelBoxComponent} from './level-box/level-box.component';
-import {StatisticComponent} from './statistic-pane/statistic.component';
-import {GameSceneComponent} from './game-scene/game-scene.component';
-import {MessagesBoxComponent} from '@app/messages-box/messages-box.component';
+import {TopBarComponent} from '@app/components/top-bar.component';
+import {LvlNavigatorComponent} from '@app/components/lvl-navigator.component';
+import {GameSceneComponent} from '@app/components/game-scene.component';
+import {StatisticComponent} from '@app/components/statistic.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TopPanelComponent,
-    MessagesBoxComponent,
+    TopBarComponent,
+    LvlNavigatorComponent,
+    StatisticComponent,
     GameSceneComponent,
-    LevelBoxComponent,
-    StatisticComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

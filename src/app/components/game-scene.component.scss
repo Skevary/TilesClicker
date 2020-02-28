@@ -1,0 +1,90 @@
+:host {
+  width: fit-content;
+  height: fit-content;
+  background-color: rgba(51, 51, 51, 0.05);
+  display: flex;
+
+  .map-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+
+    .tile {
+      display: flex;
+      flex: 1;
+      //float: left;
+      //margin: 0.0625em;
+      padding: 0;
+      //text-align: center;
+      border-radius: 8px;
+      border: 0.2em solid #333;
+      border-top-width: 1px;
+      border-left-width: 1px;
+
+      //background-position: center;
+      //background-size: 70%;
+      //background-repeat: no-repeat;
+      //cursor: pointer;
+    }
+
+    .empty {
+      background-color: rgba(218, 221, 226, 0.2);;
+    }
+
+    .player {
+      background-color: rgba(173, 171, 232, 0.5);
+      //background-image: url("https://image.flaticon.com/icons/svg/490/490091.svg");
+      cursor: initial !important;
+    }
+
+    .enemy {
+      background-color: rgba(243, 156, 156, 0.5);
+      //background-image: url("https://image.flaticon.com/icons/svg/2241/2241191.svg");
+    }
+
+    .block-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: absolute;
+      background-color: rgba(51, 51, 51, 0.5);
+      border-radius: 8px;
+      width: 100%;
+      height: 100%;
+
+      .msg-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1em 2em;
+        margin-bottom: 1em;
+        background-color: rgba(51, 51, 51, 0.85);
+        border-radius: 2px;
+
+        span {
+          font-size: 1.25em;
+          color: #e8e8e8;
+        }
+      }
+
+      .buttons-bar {
+        button {
+          background-color: rgba(51, 51, 51, 0.75);
+          border-radius: 2px;
+          width: 3.5em;
+          height: 3.5em;
+          margin: 0.25em 0.5em;
+          cursor: pointer;
+
+          i {
+            color: #e8e8e8;
+          }
+        }
+      }
+
+    }
+  }
+
+
+}

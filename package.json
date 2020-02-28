@@ -23,6 +23,7 @@
     "@angular/platform-browser": "~9.0.1",
     "@angular/platform-browser-dynamic": "~9.0.1",
     "@angular/router": "~9.0.1",
+    "@fortawesome/fontawesome-free": "^5.12.1",
     "magic.css": "^1.4.5",
     "normalize.css": "^8.0.1",
     "rxjs": "~6.5.4",

@@ -1,23 +1,42 @@
+export type TileType = 'init' | 'player' | 'enemy'
+export type GameStatus = 'init' | 'inProcess' | 'paused' | 'endWin' | 'endLose';
+export type CtrlAction = 'play' | 'pause' | 'resume' | 'replay' | 'playNext' | 'playNew'
+export type CounterField = 'click' | 'score' | 'completed' | 'win' | 'lose';
+
+export interface CtrlButton {
+  name: string;
+  icon: 'fa-play' | 'fa-pause' | 'fa-redo-alt' | 'fa-angle-double-right';
+  type: CtrlAction;
+}
+
 export interface Tile {
   id: number;
-  type: 'player' | 'enemy' | 'empty';
-  anim?: boolean;
+  type: TileType;
 }
 
-export interface AI {
-  run: (scene: Tile[]) => Tile[];
-  interval: () => number;
+export interface TilesDescription {
+  column: number;
+  count: number;
+  size: string // 100x100 - '100px' or '5em'
 }
 
-export interface Level {
-  title?: string;
+export interface Ai {
+  click: (scene: Tile[]) => Tile[];
+  delay: () => number;
+}
+
+export interface SceneCounters {
   id: number;
-  tile: {
-    column: number;
-    count: number;
-    width: string;
-    height: string;
-  },
-  ai: AI;
+  click: number;
+  score: number;
+  completed: number;
+  win: number;
+  lose: number;
 }
 
+
+export interface GameScene {
+  id: number;
+  descriptor: TilesDescription;
+  ai: Ai;
+}

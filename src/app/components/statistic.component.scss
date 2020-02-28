@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5em 0;
+  height: auto;
+  opacity: 1;
+  transition: width, opacity .6s ease-in-out;
+
+  .title {
+    font-size: 1em;
+    margin-bottom: 0.35em;
+  }
+
+  .statistic {
+    width: 100%;
+    display: flex;
+    font-size: .85em;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .line {
+      margin: 0.25em 0.5em;
+      white-space: nowrap;
+
+      b {
+        color: #e8e8e8;
+      }
+    }
+  }
+}

@@ -1,75 +1,143 @@
-import {Component} from '@angular/core';
-import {MsgPane} from '@app/messages-box/messages-box.component';
-import {gameLevels} from '@app/shared';
-
-export type MainBox = 'notice' | 'game' | 'levels' | 'stats'
+import {Component, HostListener} from '@angular/core';
+import {CtrlAction, SceneCounters, Tile} from '@app/shared';
+import {GameService} from '@app/services/game.service';
 
 @Component({
   selector: 'app-root',
   template: `
-    <app-top-panel
-      [currentLvl]="curLvl"
-      [score]="score"
-      (showStatistic)="activated('stats')"
-      (showLvlBox)="activated('levels')"
-      (previousLvl)="prev()"
-      (nextLvl)="next()">
-    </app-top-panel>
+    <!-- TOP CONTAINER -->
+    <div class="top-container">
 
-    <div class="main-container" [ngSwitch]="active">
+      <!-- Top Bar block -->
+      <app-top-bar
+        [activeId]="game.activeId"
+        [selectedId]="game.selectedId"
+        [score]="game.totalScore"
+        [status]="game.status"
+        (action)="dispatch($event)">
+      </app-top-bar>
+
+      <!-- Lvl Navigator block -->
+      <app-lvl-navigator
+        class="scroll"
+        [class.hide]="game.status === 'inProcess'"
+        [activeId]="game.activeId"
+        [selectedId]="game.selectedId"
+        [counters]="game.counters"
+        (wheel)="onMouseWheel($event)"
+        (select)="choseLvl($event)">
+      </app-lvl-navigator>
+
+      <!-- Statistic block -->
       <app-statistic
-        *ngSwitchCase="'stats'">
+        [class.hide]="game.status === 'inProcess'"
+        [counters]="selectedStats">
       </app-statistic>
 
-      <app-level-box
-        *ngSwitchCase="'levels'">
-      </app-level-box>
+    </div>
 
+    <!-- BOTTOM CONTAINER -->
+    <div class="bottom-container" [class.mini]="game.status !== 'inProcess'">
+      <!-- Game Scene -->
       <app-game-scene
-        #sc *ngSwitchCase="'game'"
-        [level]="lvl"
-        [style.maxWidth]="maxWidth">
-      </app-game-scene>
+        [status]="game.status"
+        [conf]="game.sceneConf"
+        [scene]="game.scene"
 
-      <app-messages-box
-        *ngSwitchDefault
-        [active]="notification"
-        (play)="activated('game')">
-      </app-messages-box>
+        (player)="click($event)"
+        (controls)="dispatch($event)">
+      </app-game-scene>
     </div>
   `,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  active: MainBox = 'notice';
-  notification: MsgPane = 'welcome';
 
-  curLvl: number = 0;
-  score: number = 0;
-
-  constructor() {
+  constructor(
+    public game: GameService
+  ) {
+    this.game.init();
   }
 
-  activated(val: MainBox) {
-    this.active = val;
+  onMouseWheel(e) {
+    console.log('Wheel event: ', e);
   }
 
-  prev() {
-    --this.curLvl;
+  @HostListener('document:keydown.ArrowLeft')
+  leftArrowAction(event: KeyboardEvent) {
+    if(this.game.status !== 'inProcess') {
+        this.game.selectedId -= 1;
+    }
   }
 
-  next() {
-    ++this.curLvl;
+  @HostListener('document:keydown.ArrowRight')
+  rightArrowAction(event: KeyboardEvent) {
+    if(this.game.status !== 'inProcess') {
+      this.game.selectedId += 1;
+    }
+  }
+
+  @HostListener('document:keydown.space')
+  spaceAction(event: KeyboardEvent) {
+    switch ( this.game.status) {
+      case 'inProcess': this.dispatch('pause'); break;
+      case 'paused': this.dispatch('resume'); break;
+      case 'endWin': this.dispatch('playNext'); break;
+      case 'endLose': this.dispatch('replay'); break;
+      default:return this.dispatch('play');
+    }
   }
 
 
-  get lvl() {
-    return gameLevels[this.curLvl];
+  dispatch(type: CtrlAction) {
+    switch (type) {
+      case 'pause': this.pause(); break;
+      case 'resume': this.resume(); break;
+      case 'playNext': this.play(this.game.activeId + 1); break;
+      case 'playNew': this.play(this.game.selectedId); break;
+      default: this.play();
+    }
   }
 
-  get maxWidth() {
-    const {column, width} = this.lvl.tile;
-    return `${(parseInt(width) + 6) * column}px`;
+  click(tile: Tile) {
+    this.game.increaseCounter('click', 1);
+    if (tile.type !== 'player') {
+      tile.type = 'player';
+      this.game.increaseScore();
+      this.game.checkWinState();
+    }
   }
+
+  play(id = this.game.activeId) {
+    this.game.initLvl(id);
+    this.resume();
+  }
+
+  resume() {
+    this.game.selectedId = this.game.activeId;
+    this.game.changeStatus('inProcess');
+    this.game.aiStart();
+  }
+
+  pause() {
+    this.game.changeStatus('paused');
+    this.game.aiPause();
+  }
+
+  choseLvl(id: number) {
+    this.game.selectedId = id;
+  }
+
+  get selectedStats(): SceneCounters {
+    return this.game.counters[this.game.selectedId];
+  }
+
+  /* todo: rewrite - css, add animations */
+  /* todo: ai/lvls */
+  /* todo: refactor code & redesign store-service */
+  /* todo: sound ? */
+  /* todo: add horizontal scroll with middle mouse button */
+  /* todo: make css-response for any screen-size  */
+  /* todo: find and add new font  */
 
 }
