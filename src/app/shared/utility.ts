@@ -4,6 +4,7 @@ export const ctrlSubset = (subset: CtrlAction[], from: CtrlButton[]): CtrlButton
   from.filter(({type}) => subset.some(name => name === type));
 
 export const getRand = (min, max) => {
+  // '~~()' used as a faster substitute for 'Math.floor()'
   [min, max] = [Math.ceil(min), ~~(max)];
   return ~~(Math.random() * (max - min + 1)) + min;
 };
@@ -20,16 +21,12 @@ export const aiXsNormal = (scene: Tile[]) => {
   const sc = [...scene];
   let idx;
   do {
-    idx = getRand(0, scene.length - 1);
-  } while (scene[idx].type === 'enemy');
+    idx = getRand(0, sc.length - 1);
+  } while (sc[idx].type === 'enemy');
   sc[idx].type = 'enemy';
 
   return sc;
 };
 
 export const randBetween = ([at, to]) =>
-  () => {
-    const delay = getRand(at * 1000, to * 1000);
-    console.log(`Delay: ${delay}`);
-    return delay;
-  };
+  () => getRand(at * 1000, to * 1000);

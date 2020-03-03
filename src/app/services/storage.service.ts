@@ -9,7 +9,6 @@ export class StorageService {
   constructor() {
   }
 
-
   set currLvl(val: number) {
     localStorage.setItem('lvl-id', JSON.stringify(val));
   }

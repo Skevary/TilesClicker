@@ -4,12 +4,10 @@ import {SceneCounters} from 'src/app/shared';
 @Component({
   selector: 'app-statistic',
   template: `
-<!--    <div class="title">Round Statistic</div>-->
-    <div class="statistic">
-      <span *ngFor="let line of stats" class="line">
-        {{line.name}} <b>{{line.value}}</b>
+    <div [ngClass]="'statistic'">
+      <span *ngFor="let item of stats" [ngClass]="'item'">
+        {{item.name}} <b>{{item.value}}</b>
       </span>
-
     </div>
   `,
   styleUrls: ['./statistic.component.scss']
@@ -17,9 +15,10 @@ import {SceneCounters} from 'src/app/shared';
 export class StatisticComponent implements OnInit {
   @Input() counters: SceneCounters;
 
-  constructor() { }
+  constructor() {
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
   get stats() {
@@ -29,7 +28,7 @@ export class StatisticComponent implements OnInit {
       {name: 'Rounds Wins:', value: this.counters.win},
       {name: 'Rounds Lose:', value: this.counters.lose},
       {name: 'Rounds completed:', value: this.counters.completed}
-    ]
+    ];
   }
 
 }

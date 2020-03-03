@@ -6,9 +6,8 @@ import {GameService} from '@app/services/game.service';
   selector: 'app-root',
   template: `
     <!-- TOP CONTAINER -->
-    <div class="top-container">
+    <div [ngClass]="'top-container'">
 
-      <!-- Top Bar block -->
       <app-top-bar
         [activeId]="game.activeId"
         [selectedId]="game.selectedId"
@@ -17,9 +16,8 @@ import {GameService} from '@app/services/game.service';
         (action)="dispatch($event)">
       </app-top-bar>
 
-      <!-- Lvl Navigator block -->
       <app-lvl-navigator
-        class="scroll"
+        [ngClass]="'scroll'"
         [class.hide]="game.status === 'inProcess'"
         [activeId]="game.activeId"
         [selectedId]="game.selectedId"
@@ -28,22 +26,24 @@ import {GameService} from '@app/services/game.service';
         (select)="choseLvl($event)">
       </app-lvl-navigator>
 
-      <!-- Statistic block -->
       <app-statistic
         [class.hide]="game.status === 'inProcess'"
         [counters]="selectedStats">
       </app-statistic>
 
+      <app-progress-bar
+        [scene]="game.scene"
+        [counter]="game.tileCounter">
+      </app-progress-bar>
     </div>
 
+
     <!-- BOTTOM CONTAINER -->
-    <div class="bottom-container" [class.mini]="game.status !== 'inProcess'">
-      <!-- Game Scene -->
+    <div [ngClass]="'bottom-container'" [class.mini]="game.status !== 'inProcess'">
       <app-game-scene
         [status]="game.status"
         [conf]="game.sceneConf"
         [scene]="game.scene"
-
         (player)="click($event)"
         (controls)="dispatch($event)">
       </app-game-scene>
@@ -63,31 +63,16 @@ export class AppComponent {
     console.log('Wheel event: ', e);
   }
 
-  @HostListener('document:keydown.ArrowLeft')
-  leftArrowAction(event: KeyboardEvent) {
-    if(this.game.status !== 'inProcess') {
-        this.game.selectedId -= 1;
-    }
-  }
-
-  @HostListener('document:keydown.ArrowRight')
-  rightArrowAction(event: KeyboardEvent) {
-    if(this.game.status !== 'inProcess') {
-      this.game.selectedId += 1;
-    }
-  }
-
   @HostListener('document:keydown.space')
-  spaceAction(event: KeyboardEvent) {
-    switch ( this.game.status) {
+  spaceAction() {
+    switch (this.game.status) {
       case 'inProcess': this.dispatch('pause'); break;
       case 'paused': this.dispatch('resume'); break;
       case 'endWin': this.dispatch('playNext'); break;
       case 'endLose': this.dispatch('replay'); break;
-      default:return this.dispatch('play');
+      default: return this.dispatch('play');
     }
   }
-
 
   dispatch(type: CtrlAction) {
     switch (type) {
@@ -131,13 +116,5 @@ export class AppComponent {
   get selectedStats(): SceneCounters {
     return this.game.counters[this.game.selectedId];
   }
-
-  /* todo: rewrite - css, add animations */
-  /* todo: ai/lvls */
-  /* todo: refactor code & redesign store-service */
-  /* todo: sound ? */
-  /* todo: add horizontal scroll with middle mouse button */
-  /* todo: make css-response for any screen-size  */
-  /* todo: find and add new font  */
 
 }

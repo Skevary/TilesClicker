@@ -2,6 +2,7 @@ export type TileType = 'init' | 'player' | 'enemy'
 export type GameStatus = 'init' | 'inProcess' | 'paused' | 'endWin' | 'endLose';
 export type CtrlAction = 'play' | 'pause' | 'resume' | 'replay' | 'playNext' | 'playNew'
 export type CounterField = 'click' | 'score' | 'completed' | 'win' | 'lose';
+export type TileCounterField = 'user' | 'ai';
 
 export interface CtrlButton {
   name: string;
@@ -9,15 +10,21 @@ export interface CtrlButton {
   type: CtrlAction;
 }
 
+export interface TileCounter {
+  user: number;
+  ai: number;
+}
+
 export interface Tile {
   id: number;
   type: TileType;
+  anim: boolean;
 }
 
 export interface TilesDescription {
   column: number;
   count: number;
-  size: string // 100x100 - '100px' or '5em'
+  size: string
 }
 
 export interface Ai {
@@ -33,7 +40,6 @@ export interface SceneCounters {
   win: number;
   lose: number;
 }
-
 
 export interface GameScene {
   id: number;

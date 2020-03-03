@@ -1,5 +1,15 @@
 import {Injectable} from '@angular/core';
-import {Ai, CounterField, GameStatus, SCENE_SET, SceneCounters, Tile, TilesDescription} from 'src/app/shared';
+import {
+  Ai,
+  CounterField,
+  GameStatus,
+  SCENE_SET,
+  SceneCounters,
+  Tile,
+  TileCounter,
+  TileCounterField,
+  TilesDescription
+} from 'src/app/shared';
 import {StorageService} from './storage.service';
 
 
@@ -13,11 +23,14 @@ export class GameService {
 
   scene: Tile[];
   sceneConf: TilesDescription;
+
   ai: Ai;
   aiTime: number;
 
   totalScore: number;
   counters: SceneCounters[];
+
+  tileCounter: TileCounter;
 
   constructor(private store: StorageService) {
   }
@@ -40,6 +53,7 @@ export class GameService {
     this.store.currLvl = id;
     this.activeId = id;
     this.selectedId = id;
+    this.tileCounter = {user: 0, ai: 0};
     this.changeStatus('init');
     this.changeDescriptor();
     this.generateScene();
@@ -59,6 +73,39 @@ export class GameService {
     clearTimeout(this.aiTime);
   }
 
+  generateScene() {
+    this.scene = Array.from(
+      {length: this.sceneConf.count},
+      (v, i) => ({id: i, type: 'init', anim: false})
+    );
+  }
+
+  checkWinState() {
+    let [userCount, aiCount] = [0, 0];
+    this.scene.forEach(({type}) => {
+      type === 'player' && ++userCount;
+      type === 'enemy' && ++aiCount;
+    });
+
+    this.changeTileCounter('user', userCount);
+    this.changeTileCounter('ai', aiCount);
+
+    const lvlSize = this.scene.length;
+    const {user, ai} = this.tileCounter;
+
+    if (user >= lvlSize || ai >= lvlSize) {
+      this.increaseCounter('completed', 1);
+
+      if (user >= lvlSize) {
+        this.increaseCounter('win', 1);
+        this.changeStatus('endWin');
+      } else {
+        this.increaseCounter('lose', 1);
+        this.changeStatus('endLose');
+      }
+    }
+  }
+
   changeDescriptor(id = this.activeId) {
     const {ai, descriptor} = SCENE_SET[id];
     this.sceneConf = descriptor;
@@ -69,39 +116,22 @@ export class GameService {
     this.status = val;
   }
 
-  generateScene() {
-    this.scene = Array.from(
-      {length: this.sceneConf.count},
-      (v, i) => ({id: i, type: 'init'})
-    );
-  }
 
-  checkWinState() {
-    const firstType = this.scene[0].type;
-    const end = firstType !== 'init' && this.scene.every(({type}) => firstType === type);
-    if (end) {
-      this.increaseCounter('completed', 1);
-
-      if (firstType === 'player') {
-        this.increaseCounter('win', 1);
-        this.changeStatus('endWin');
-      } else {
-        this.increaseCounter('lose', 1);
-        this.changeStatus('endLose');
-      }
-    }
-  }
-
-  increaseCounter(val: CounterField, num: number) {
-    const tmp = this.counters[this.activeId];
-    this.counters[this.activeId] = {...tmp, ...{[val]: tmp[val] += num}};
-    this.store.setCounters(this.counters[this.activeId], this.activeId);
+  changeTileCounter(val: TileCounterField, num: number) {
+    const tmp = {...this.tileCounter};
+    this.tileCounter = {...tmp, ...{[val]: num}};
   }
 
   increaseScore() {
     this.increaseCounter('score', 1);
     this.totalScore = this.totalScore + 1;
     this.store.totalScore = this.totalScore;
+  }
+
+  increaseCounter(val: CounterField, num: number) {
+    const tmp = this.counters[this.activeId];
+    this.counters[this.activeId] = {...tmp, ...{[val]: tmp[val] += num}};
+    this.store.setCounters(this.counters[this.activeId], this.activeId);
   }
 
 }
