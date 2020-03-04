@@ -4,7 +4,7 @@ import {BUTTON_SET, CtrlAction, CtrlButton, ctrlSubset, GameStatus, Tile, TilesD
 @Component({
   selector: 'app-game-scene',
   template: `
-    <div [ngClass]="'map-wrapper'" [style.maxWidth]="maxWidth">
+    <div [ngClass]="'map-wrapper shadow'" [style.maxWidth]="maxWidth">
       <!-- Scene -->
       <div
         *ngFor="let tile of scene"
@@ -16,7 +16,7 @@ import {BUTTON_SET, CtrlAction, CtrlButton, ctrlSubset, GameStatus, Tile, TilesD
         [attr.data-id]="tile.id">
       </div>
 
-      <div *ngIf="status !== 'inProcess'" [ngClass]="'block-screen'">
+      <div [ngClass]="'block-screen'" [class.show]="status !== 'inProcess'">
         <!-- Notify -->
         <div *ngIf="displayMsg" [ngClass]="'msg-box'">
           <span>{{message}}</span>
@@ -79,7 +79,7 @@ export class GameSceneComponent implements OnInit {
   }
 
   click(val: Tile) {
-    val.type !== 'player' && this.playBlast(val);
+    val.type === 'enemy' && this.playBlast(val);
     this.player.emit(val);
   }
 

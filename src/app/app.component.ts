@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, HostBinding, HostListener} from '@angular/core';
 import {CtrlAction, SceneCounters, Tile} from '@app/shared';
 import {GameService} from '@app/services/game.service';
 
@@ -6,7 +6,7 @@ import {GameService} from '@app/services/game.service';
   selector: 'app-root',
   template: `
     <!-- TOP CONTAINER -->
-    <div [ngClass]="'top-container'">
+    <div [ngClass]="'top-container shadow'">
 
       <app-top-bar
         [activeId]="game.activeId"
@@ -52,6 +52,7 @@ import {GameService} from '@app/services/game.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  @HostBinding('class') rootBg = 's0';
 
   constructor(
     public game: GameService
@@ -94,6 +95,7 @@ export class AppComponent {
   }
 
   play(id = this.game.activeId) {
+    this.rootBg = `s${this.game.activeId % 5}`;
     this.game.initLvl(id);
     this.resume();
   }

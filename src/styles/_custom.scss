@@ -1,0 +1,89 @@
+.btn {
+  margin: 0 0.25em;
+  background-color: var(--textBg);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    margin-right: 0.3em;
+    font-size: .95em;
+    color: var(--textWhite);
+  }
+
+  i {
+    font-size: 0.65em;
+    color: #988779;
+  }
+
+
+  &:hover {
+    i {
+      color: rgba(33, 150, 243, 0.75);
+    }
+  }
+}
+
+.btn-icon {
+  @extend .btn;
+  width: 3.5em;
+  height: 3.5em;
+  margin: 0.25em 0.5em;
+
+  i {
+    color: var(--textWhite);
+    font-size: 1em;
+  }
+}
+
+.mini {
+  transform: scale(.8);
+}
+
+.flip {
+  transform: scale(-1);
+}
+
+.scroll {
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.shadow {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15),
+  0 2px 10px 0 rgba(0, 0, 0, 0.15);
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .scroll {
+    background-color: rgba(109, 97, 94, 0);
+    -webkit-background-clip: text;
+    transition: background-color .8s ease-in-out;
+
+    &:hover {
+      background-color: rgba(109, 97, 94, 0.25);;
+    }
+
+    &::-webkit-scrollbar {
+      width: 0.25em;
+      height: 0.25em;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      display: none;
+      //background: #e8e8e8;
+      //margin-bottom: 0.27em;
+      //margin-top: 0.27em;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      //background: rgba(196, 196, 196, 1);
+      background-color: inherit;
+      //border-radius: 0.25em;
+    }
+  }
+
+}

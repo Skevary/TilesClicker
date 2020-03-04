@@ -5,6 +5,8 @@
   flex-wrap: wrap;
   background-color: var(--panelBg);
   width: 100%;
+  border-top-right-radius: var(--mainRadius);
+  border-top-left-radius: var(--mainRadius);
 
   .scores-bar {
     margin: 0.5em 1em;
@@ -19,7 +21,6 @@
       margin: 0 .25em 0 0;
 
       i {
-        color: var(--textWhite);
         transition: transform .4s ease-in-out;
       }
     }

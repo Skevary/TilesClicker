@@ -16,6 +16,7 @@
     cursor: pointer;
     box-sizing: border-box;
     position: relative;
+    border-radius: var(--lowRadius);
 
     &.selected {
       border: 0.2em solid rgba(33, 150, 243, 0.75);
@@ -27,32 +28,34 @@
 
 
     .title {
-      color: beige;
+      color: var(--textWhite);
       font-size: 1em;
+      text-shadow: black 0 0 2em;
     }
   }
 
   .lock-lvl-box {
     @extend .lvl-box;
-    cursor: initial;
-    background-color: rgba(153, 137, 125, 1);
+    cursor: not-allowed;
+    background-color: var(--panelBg);
 
     .state {
       position: absolute;
-      background-color: #b34239;
+      background-color: var(--red);
+      border-radius: var(--mainRadius);
       bottom: -0.15em;
       right: -0.15em;
       width: 1.25em;
       height: 1.25em;
       display: flex;
       align-items: center;
-      border-radius: 2px;
       top: auto;
       left: auto;
       justify-content: center;
+      cursor: help;
+
       i {
         font-size: .65em;
-        color: #e6e8e8;
       }
     }
   }

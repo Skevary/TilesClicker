@@ -52,6 +52,16 @@ export const SCENE_SET: GameScene[] = [
     descriptor: {column: 10, count: 100, size: '3em'},
     ai: {click: aiXsNormal, delay: randBetween([0.5, 0.6])}
   },
+  {
+    id: 10,
+    descriptor: {column: 10, count: 100, size: '3em'},
+    ai: {click: aiXsNormal, delay: randBetween([0.5, 0.6])}
+  },
+  {
+    id: 11,
+    descriptor: {column: 10, count: 100, size: '3em'},
+    ai: {click: aiXsNormal, delay: randBetween([0.5, 0.6])}
+  },
 ];
 
 

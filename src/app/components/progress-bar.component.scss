@@ -11,12 +11,12 @@
   }
 
   .user {
-    background-color: #1d9e1d;
+    background-color: var(--green);
     left: 0;
   }
 
   .ai {
-    background-color: #c3271a;
+    background-color: var(--red);
     right: 0;
   }
 }
