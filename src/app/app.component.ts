@@ -61,6 +61,8 @@ export class AppComponent {
   }
 
   onMouseWheel(e) {
+    // todo: auto-focused in active lvl
+    // todo: add horizontal scroll with middle-mouse button
     console.log('Wheel event: ', e);
   }
 

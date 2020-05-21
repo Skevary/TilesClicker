@@ -103,7 +103,7 @@ $box-shadow2: ();
   }
 }
 
-.blast {
+/*.blast {
   position: relative;
 
   &:before {
@@ -122,7 +122,7 @@ $box-shadow2: ();
       5s position linear backwards
     ));
   }
-}
+}*/
 
 .player, .enemy {
   @include animation((.35s puffIn, .4s getIn ease-in));

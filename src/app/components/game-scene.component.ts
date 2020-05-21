@@ -79,7 +79,7 @@ export class GameSceneComponent implements OnInit {
   }
 
   click(val: Tile) {
-    val.type === 'enemy' && this.playBlast(val);
+    // val.type === 'enemy' && this.playBlast(val);
     this.player.emit(val);
   }
 
